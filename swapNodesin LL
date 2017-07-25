@@ -1,0 +1,64 @@
+public static ListNode swapNodes(ListNode head, int k) {
+        // Write your code here
+        if (head == null || head.next == null) {
+            return head;
+        }
+        
+        //calculate the length of the list
+        int len=0;
+        ListNode t= head;
+        while(t!=null)
+        {
+            len++;
+            t=t.next;
+        }
+        //System.out.println("len:" + len);
+        
+        ListNode temp = new ListNode(-1);
+        temp.next = head;
+
+        ListNode prev1 = temp;
+        ListNode curr1 = head;
+        int count=1;
+        while (curr1 != null) {
+            if ( count==k) {
+                break;
+            } else {
+                prev1 = prev1.next;
+                curr1 = curr1.next;
+                count++;
+            }
+        }
+        
+
+        ListNode prev2 = temp;
+        ListNode curr2 = head;
+        int reverse=len-k+1;
+        count=1;
+        while (curr2 != null) {
+            if ( count==reverse ) {
+                break;
+            } else {
+                prev2 = prev2.next;
+                curr2 = curr2.next;
+                count++;
+            }
+        }
+        
+
+        if (curr1.next == curr2) {
+            ListNode next2 = curr2.next;
+            prev1.next = curr2;
+            curr2.next = curr1;
+            curr1.next = next2;
+        } else {
+            ListNode next1 = curr1.next;
+            ListNode next2 = curr2.next;
+            prev1.next = curr2;
+            curr2.next = next1;
+            prev2.next = curr1;
+            curr1.next = next2;
+        }
+        return temp.next;
+
+    } 
